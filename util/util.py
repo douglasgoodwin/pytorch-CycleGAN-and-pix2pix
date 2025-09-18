@@ -63,17 +63,14 @@ def init_ddp():
     elif torch.cuda.is_available():
         device = torch.device("cuda:0")
         torch.cuda.set_device(0)
+    elif torch.backends.mps.is_available():  # DRG for M4 chip
+        device = torch.device("mps")         # DRG for M4 chip
+        print("🚀 Using MPS (Apple Silicon GPU)")  # DRG for M4 chip
     else:
         device = torch.device("cpu")
     print(f"Initialized with device {device}")
     return device
-
-
-# cleanup ddp
-def cleanup_ddp():
-    if dist.is_initialized():
-        dist.destroy_process_group()
-
+    
 
 def save_image(image_numpy, image_path, aspect_ratio=1.0):
     """Save a numpy image to the disk
