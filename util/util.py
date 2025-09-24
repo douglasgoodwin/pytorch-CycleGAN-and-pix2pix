@@ -70,7 +70,11 @@ def init_ddp():
         device = torch.device("cpu")
     print(f"Initialized with device {device}")
     return device
-    
+
+# cleanup ddp
+def cleanup_ddp():
+    if dist.is_initialized():
+        dist.destroy_process_group()
 
 def save_image(image_numpy, image_path, aspect_ratio=1.0):
     """Save a numpy image to the disk
