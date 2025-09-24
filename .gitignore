@@ -1,3 +1,7 @@
+venv
+.mov
+.mp4
+
 .DS_Store
 debug*
 datasets/
